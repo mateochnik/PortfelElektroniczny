@@ -1,0 +1,41 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1>Portfel Elektroniczny</h1>
+    {% if user.is_authenticated %}
+    <p class="lead">Witaj {{user.username}} w aplikacji Portfel Elektroniczny. Dodawaj swoje dochody oraz wydatki i zarzadzaj nimi!</p>
+    <p><a href="dochody" class="btn btn-primary btn-large">Dochody &raquo;</a> &nbsp<a href="wydatki" class="btn btn-primary btn-large">Wydatki &raquo;</a>&nbsp&nbsp<a href="bilans" class="btn btn-primary btn-large">Bilans &raquo;</a></p>
+
+    {% else %}
+
+    <p class="lead">Witaj w aplikacji portfel elektroniczny, zaloguj sie aby kontynuowac</p>
+    <p><a href="login/" class="btn btn-primary btn-large">Zaloguj &raquo;</a> </p>
+    <p align ="right"><font size=-4 >Jesli nie masz jeszcze konta <a href="{% url 'contact' %}">Zarejestruj sie</a></font></p>
+    {% endif %}
+</div>
+
+<!--<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            Django gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://www.djangobook.com/en/2.0/index.html">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>The Python Package Index is a repository of software for the Python programming language.</p>
+        <p><a class="btn btn-default" href="https://pypi.org/">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Microsoft Azure</h2>
+        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
+        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+    </div>
+</div>-->
+
+{% endblock %}
