@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^dochody$', app.views.dochody, name='dochody'),
     url(r'^bilans$', app.views.bilans, name='bilans'),
     url(r'^wydatki$', app.views.wydatki, name='wydatki'),
-    #url(r'^rejestracja$', app.views.rejestracja, name='rejestracja'),
+    url(r'^rejestracja$', app.views.rejestracja, name='rejestracja'),
     url(r'^login/$',
         django.contrib.auth.views.login,
         {

@@ -58,6 +58,7 @@
   <ItemGroup>
     <Content Include="app\templates\app\bilans.html" />
     <Content Include="app\templates\app\dochody.html" />
+    <Content Include="app\templates\app\rejestracja.html" />
     <Content Include="app\templates\app\wydatki.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />

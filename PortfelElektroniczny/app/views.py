@@ -83,17 +83,15 @@ def bilans(request):
         }
     )
 
-#def rejestracja(request):
-    #"""Renders the about page."""
- #   form = UserCreationForm
-  #  return render(request, 'rejestracja.html', {'form': form})
-
-    #assert isinstance(request, HttpRequest)
-    #return render(
-     #   request,
-      #  'app/rejestracja.html',
-       # {
-        #    'title':'Rejestracja',
-         #   'year':datetime.now().year,
-       # }
-    #)
+def rejestracja(request):    
+    """Renders the contact page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/rejestracja.html',
+        {
+            'title':'Tworzenie konta',
+            'message':'Witajaaa',
+            'year':datetime.now().year,
+        }
+    )
