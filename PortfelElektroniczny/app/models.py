@@ -14,7 +14,7 @@ class Wallet(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
-    current_balance = CURRENCY_STORE_FIELD(defaul=0)
+    current_balance = CURRENCY_STORE_FIELD(default=0)
 
     created_at = models.DateTimeField(auto_now_add = True)
 
