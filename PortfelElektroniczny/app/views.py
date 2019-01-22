@@ -9,6 +9,8 @@ from datetime import datetime
 from app.forms import Rejestracja
 from django.contrib.auth import login, authenticate
 from app.models import Wallet
+from app.models import Post
+from django.utils import timezone
 
 
 
@@ -39,13 +41,14 @@ def contact(request):
 
 def about(request):
     """Renders the about page."""
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     assert isinstance(request, HttpRequest)
     return render(
         request,
         'app/about.html',
         {
             'title':'O aplikacji',
-           
+            'posts': posts,
             'year':datetime.now().year,
         }
     )
