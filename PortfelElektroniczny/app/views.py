@@ -8,6 +8,9 @@ from django.template import RequestContext
 from datetime import datetime
 from app.forms import Rejestracja
 from django.contrib.auth import login, authenticate
+from app.models import Wallet
+
+
 
 def home(request):
     """Renders the home page."""
@@ -50,12 +53,18 @@ def about(request):
 def dochody(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
+    model = Wallet.objects.all()
+    for post in model:
+        portfel = post
+        
     return render(
         request,
         'app/dochody.html',
         {
             'title':'Dochody',
             'year':datetime.now().year,
+            'portfel' : portfel
+            
         }
     )
 
@@ -68,6 +77,7 @@ def wydatki(request):
         {
             'title':'Wydatki',
             'year':datetime.now().year,
+            
         }
     )
 
