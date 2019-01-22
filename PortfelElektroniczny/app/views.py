@@ -105,14 +105,3 @@ def rejestracja(request):
             'year':datetime.now().year,
         }
     )
-def wpisy(request):    
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/wpisy.html',
-        {
-            'title':'Zakladka: wpisy!',
-            'year':datetime.now().year,
-        }
-    )
