@@ -8,9 +8,11 @@ from django.template import RequestContext
 from datetime import datetime
 from app.forms import Rejestracja
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from app.models import Wallet
 from app.models import Post
 from django.utils import timezone
+from django.views.generic import CreateView
 
 
 
@@ -99,12 +101,25 @@ def bilans(request):
 def rejestracja(request):    
     """Renders the contact page."""
     assert isinstance(request, HttpRequest)
+    form = UserCreationForm()
     return render(
         request,
         'app/rejestracja.html',
         {
             'title':'Tworzenie konta',
-            'message':'Witajaaa',
+            'form' : form,
             'year':datetime.now().year,
         }
     )
+class Register(CreateView):
+    form_class = Rejestracja
+    #template_name = "account/register.html"
+ 
+    def form_valid(self, form):
+        form.save()
+ 
+        user = authenticate(username=form.cleaned_data.get("username"),
+                            password=form.cleaned_data.get("password1"))
+        login(self.request, user)
+ 
+        return redirect("about")
