@@ -8,10 +8,10 @@
 <p>Aplikacja sluzy do zarzadzania wydatkami</p>
 
 {% for post in posts %}
-  <div class="jumbotron">
+  <div>
 
-        <h1>{{ post.title }}</h1>
-        <p><font size=5 >{{ post.text|linebreaksbr }}</font></p>
+        <h2>{{ post.title }}</h2>
+        <p><font size=3 >{{ post.text|linebreaksbr }}</font></p>
         <p align ="right"><font size=2 >published: {{ post.published_date }}</font></p>
    </div>
 {% endfor %}
