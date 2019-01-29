@@ -22,6 +22,8 @@ class BootstrapAuthenticationForm(AuthenticationForm):
 class myUserCreationForm(UserCreationForm):
 
     class Meta:
+
+
         model=User
         fields = ('username', 'password1', 'password2')
 
@@ -41,4 +43,3 @@ class DodajDochodForm(forms.ModelForm):
             "description",
             "amount",
             ]
-    
