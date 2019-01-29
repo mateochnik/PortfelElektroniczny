@@ -7,6 +7,7 @@ from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
 from app.forms import Rejestracja, DodajDochodForm
+from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from app.models import Wallet
@@ -99,31 +100,19 @@ def bilans(request):
         }
     )
 
-def rejestracja(request):    
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
-    form = UserCreationForm()
-    return render(
-        request,
-        'app/rejestracja.html',
-        {
-            'title':'Tworzenie konta',
-            'form' : form,
-            'year':datetime.now().year,
-        }
-    )
-class Register(CreateView):
-    form_class = Rejestracja
-    #template_name = "account/register.html"
- 
-    def form_valid(self, form):
-        form.save()
- 
-        user = authenticate(username=form.cleaned_data.get("username"),
-                            password=form.cleaned_data.get("password1"))
-        login(self.request, user)
- 
-        return redirect("about")
+def rejestracja(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'app/rejestracja.html', {'form': form})
 
 def dodajDochod(request):
     if request.method == "POST":

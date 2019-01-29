@@ -19,28 +19,18 @@ class BootstrapAuthenticationForm(AuthenticationForm):
                                widget=forms.PasswordInput({
                                    'class': 'form-control',
                                    'placeholder':'Haslo'}))
-    
+class myUserCreationForm(UserCreationForm):
 
-class Rejestracja(UserCreationForm):
-    username = forms.CharField(
-        max_length=100,
-        label="Nazwa użytkownika",
-        widget=forms.TextInput(
-            attrs={
-                "class": "example-html-class",
-                "placeholder": "Nazwa użytkownika"
-            }
-        )
-    )  # It's a example extend field. You can do it for all field .
- 
     class Meta:
-        model = User
-        fields = [
-            "username",
-            "password1",
-            "password2",
-        ]
+        model=User
+        fields = ('username', 'password1', 'password2')
 
+    def __init__(self, *args, **kwargs):
+        super(myUserCreationForm, self).__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['password1'].widget.attrs['class'] = 'form-control'
+        self.fields['password2'].widget.attrs['class'] = 'form-control'
 
 class DodajDochodForm(forms.ModelForm):
 
