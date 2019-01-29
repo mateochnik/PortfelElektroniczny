@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
+from app.models import Dochod
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -39,3 +40,15 @@ class Rejestracja(UserCreationForm):
             "password1",
             "password2",
         ]
+
+
+class DodajDochodForm(forms.ModelForm):
+
+    class Meta:
+        model = Dochod
+        fields = [
+            "category",
+            "description",
+            "amount",
+            ]
+    
