@@ -6,13 +6,15 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
+from app.forms import Rejestracja, DodajDochodForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from app.models import Wallet
-from app.models import Post
+from app.models import Post, Dochod
 from django.utils import timezone
 from django.views.generic import CreateView
+
 
 
 
@@ -111,3 +113,16 @@ def rejestracja(request):
     else:
         form = UserCreationForm()
     return render(request, 'app/rejestracja.html', {'form': form})
+
+def dodajDochod(request):
+    if request.method == "POST":
+        form = DodajDochodForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            
+    
+            post.save()
+            return redirect('dodajDochod', pk=post.pk)
+    else:
+        form = DodajDochodForm()
+    return render(request, 'app/dodajDochod.html', {'form': form})
