@@ -60,9 +60,9 @@ def about(request):
 def dochody(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
-    model = Wallet.objects.all()
-    for post in model:
-        portfel = post
+    
+    dochod = Dochod.objects.all()
+    
         
     return render(
         request,
@@ -70,7 +70,7 @@ def dochody(request):
         {
             'title':'Dochody',
             'year':datetime.now().year,
-            'portfel' : portfel
+            'dochod' : dochod
             
         }
     )
@@ -115,18 +115,19 @@ def rejestracja(request):
     return render(request, 'app/rejestracja.html', {'form': form})
 
 def dodajDochod(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         print("ok")
         form = DodajDochodForm(request.POST)
         if form.is_valid():
-            post = form.save()
-            amount = request.amount
-            description = request.description
-            category = request.category
+            post = form.save(commit=False)
+            post.amount = amount
+            post.description = description
+            post.category = category
+            
             print("ok1")
     
             post.save()
-            return redirect('dodajDochod', pk=post.pk)
+            return redirect('dochod', pk=post.pk)
        
     else:
         form = DodajDochodForm()
@@ -134,20 +135,21 @@ def dodajDochod(request):
     return render(request, 'app/dodajDochod.html', {'form': form})
 
 def dodajWydatek(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         print("ok")
         form = DodajWydatekForm(request.POST)
         if form.is_valid():
-            post = form.save(commit = false)
-            post.amount = request.amount
-            post.description = request.description
-            post.category = request.category
+            post = form.save(commit = False)
+            post.amount = amount
+            post.description = description
+            post.category = category
+            
             print("ok1")
     
             post.save()
-            return redirect('dodajWydatek', pk=post.pk)
+            return redirect('wydatki', pk=post.pk)
        
     else:
-        form = DodajDochodForm()
+        form =  DodajWydatekForm()
         print("ok2")
     return render(request, 'app/dodajWydatek.html', {'form': form})

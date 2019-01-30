@@ -4,7 +4,13 @@
 
 <h2>{{ title }}</h2>
 <p>
-    {{portfel.current_balance}}
+    {% for dochody in dochod %}
+    <div>
+
+        <h2>{{ dochody.amount }}</h2>
+        <p><font size=3 >{{ dochody.descripiton }}</font></p>
+   </div>
+{% endfor %}
 
     
 </p>

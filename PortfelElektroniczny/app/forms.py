@@ -38,18 +38,10 @@ class DodajDochodForm(forms.ModelForm):
 
     class Meta:
         model = Dochod
-        fields = [
-            "amount",
-            "description",
-            "category"
-             ]
+        fields = ('amount', 'description', 'category')
 class DodajWydatekForm(forms.ModelForm):
 
     class Meta:
         model = Wydatek
-        fields = [
-            "amount",
-            "description",
-            "category"
-            ]
-                
+        fields = ('amount', 'description', 'category')
+            
