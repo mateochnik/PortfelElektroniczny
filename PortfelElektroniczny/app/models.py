@@ -21,11 +21,16 @@ class Dochod(models.Model):
     dochod_id = models.BigIntegerField(default = 0)
     description = models.CharField(max_length=1000)
     amount = models.DecimalField(max_digits=18, decimal_places=2, default=0)
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(blank = True, null = True)
     category = models.ForeignKey(DochodCategory)
     
     def __str__(self):
         return self.description
+
+    def publish(self):
+        self.date = timezone.now()
+        self.save()
+
     def getAmount():
         return amount
 
@@ -41,8 +46,18 @@ class Wydatek(models.Model):
     wydatek_id = models.BigIntegerField(default = 0)
     description = models.CharField(max_length = 1000)
     amount = models.DecimalField(max_digits = 18, decimal_places=2, default = 0)
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(blank = True, null = True)
     category = models.ForeignKey(WydatekCategory)
+
+    def __str__(self):
+        return self.description
+
+    def publish(self):
+        self.date = timezone.now()
+        self.save()
+
+    class Meta:
+        ordering = ['-description', '-pk']
 
 class Wallet(models.Model):
 
