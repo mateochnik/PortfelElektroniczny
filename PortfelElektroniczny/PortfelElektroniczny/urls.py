@@ -5,6 +5,7 @@ Definition of urls for PortfelElektroniczny.
 from datetime import datetime
 from django.conf.urls import url
 import django.contrib.auth.views
+from django.urls import path
 
 
 import app.forms
@@ -17,6 +18,7 @@ from django.contrib import admin
 
 urlpatterns = [
     # Examples:
+
     url(r'^$', app.views.home, name='home'),
     url(r'^contact$', app.views.contact, name='contact'),
     url(r'^about$', app.views.about, name='about'),
@@ -51,4 +53,5 @@ urlpatterns = [
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    path('post/new', views.post_new, name='post_new'),
 ]
