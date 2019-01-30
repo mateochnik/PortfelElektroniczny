@@ -6,12 +6,12 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
-from app.forms import myUserCreationForm, DodajDochodForm
+from app.forms import myUserCreationForm, DodajDochodForm, DodajWydatekForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from app.models import Wallet
-from app.models import Post, Dochod
+from app.models import Post, Dochod, Wydatek
 from django.utils import timezone
 from django.views.generic import CreateView
 
@@ -116,13 +116,38 @@ def rejestracja(request):
 
 def dodajDochod(request):
     if request.method == "POST":
+        print("ok")
         form = DodajDochodForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            amount = form.
+            post = form.save()
+            amount = request.amount
+            description = request.description
+            category = request.category
+            print("ok1")
     
             post.save()
             return redirect('dodajDochod', pk=post.pk)
+       
     else:
         form = DodajDochodForm()
+        print("ok2")
     return render(request, 'app/dodajDochod.html', {'form': form})
+
+def dodajWydatek(request):
+    if request.method == "POST":
+        print("ok")
+        form = DodajWydatekForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit = false)
+            post.amount = request.amount
+            post.description = request.description
+            post.category = request.category
+            print("ok1")
+    
+            post.save()
+            return redirect('dodajWydatek', pk=post.pk)
+       
+    else:
+        form = DodajDochodForm()
+        print("ok2")
+    return render(request, 'app/dodajWydatek.html', {'form': form})

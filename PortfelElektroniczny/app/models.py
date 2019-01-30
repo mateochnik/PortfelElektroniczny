@@ -32,6 +32,17 @@ class Dochod(models.Model):
     class Meta:
         ordering = ['-description', '-pk']
     
+class WydatekCategory(models.Model):
+    description = models.CharField(max_length = 1000)
+    def __str__(self):
+        return self.description
+
+class Wydatek(models.Model):
+    wydatek_id = models.BigIntegerField(default = 0)
+    description = models.CharField(max_length = 1000)
+    amount = models.DecimalField(max_digits = 18, decimal_places=2, default = 0)
+    date = models.DateField(default=timezone.now)
+    category = models.ForeignKey(WydatekCategory)
 
 class Wallet(models.Model):
 
@@ -40,7 +51,7 @@ class Wallet(models.Model):
     listaWydatkow=[]
 
     dochod = models.ManyToManyField(Dochod)
-    
+    wydatek = models.ManyToManyField(Wydatek)
 
     
     current_balance = CURRENCY_STORE_FIELD(default=0)
