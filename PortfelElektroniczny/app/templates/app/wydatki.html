@@ -3,7 +3,14 @@
 {% block content %}
 
 <h2>{{ title }}</h2>
+<p>
+    {% for wydatki in wydatek %}
+    <div>
 
-
+        <h2>{{ wydatki.description }}</h2>
+        <p><font size=3 >Kwota: {{ wydatki.amount }} PLN</font></p>
+        <p><font size=3 >Kategoria: {{wydatki.category}}</font></p>
+   </div>
+{% endfor %}
 <p><a href="dodajWydatek" class="btn btn-primary btn-large">Dodaj Wydatek &raquo;</a></p>
 {% endblock %}

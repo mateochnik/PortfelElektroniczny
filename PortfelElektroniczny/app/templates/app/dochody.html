@@ -7,8 +7,9 @@
     {% for dochody in dochod %}
     <div>
 
-        <h2>{{ dochody.amount }}</h2>
-        <p><font size=3 >{{ dochody.descripiton }}</font></p>
+        <h2>{{ dochody.description }}</h2>
+        <p><font size=3 >Kwota: {{ dochody.amount }} PLN</font></p>
+        <p><font size=3 >Kategoria: {{dochody.category}}</font></p>
    </div>
 {% endfor %}
 
