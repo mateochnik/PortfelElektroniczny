@@ -78,18 +78,24 @@ def dochody(request):
 def wydatki(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
+    wydatek = Wydatek.objects.all()
     return render(
         request,
         'app/wydatki.html',
         {
             'title':'Wydatki',
             'year':datetime.now().year,
+            'wydatek' : wydatek
             
         }
     )
 
 def bilans(request):
-    """Renders the about page."""
+    bilans = Wallet.objects.all()
+    for bil in bilans:
+        bil.obliczBilans
+        balans = bil.current_balance
+    
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -97,6 +103,7 @@ def bilans(request):
         {
             'title':'Bilans',
             'year':datetime.now().year,
+            'balans' : balans
         }
     )
 
@@ -119,7 +126,7 @@ def dodajDochod(request):
         print("ok")
         form = DodajDochodForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
+            post = form.save()
             post.amount = amount
             post.description = description
             post.category = category
@@ -139,7 +146,7 @@ def dodajWydatek(request):
         print("ok")
         form = DodajWydatekForm(request.POST)
         if form.is_valid():
-            post = form.save(commit = False)
+            post = form.save()
             post.amount = amount
             post.description = description
             post.category = category

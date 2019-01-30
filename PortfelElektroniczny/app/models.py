@@ -7,8 +7,8 @@ from django.conf import settings
 from django.utils import timezone
 from datetime import date
 
-CURRENCY_STORE_FIELD = getattr(settings,
-        'WALLET_CURRENCY_STORE_FIELD', models.BigIntegerField)
+#CURRENCY_STORE_FIELD = getattr(settings,
+ #       'WALLET_CURRENCY_STORE_FIELD', models.DecimalField(max_digits=18, decimal_places=2, default=0))
 
 class DochodCategory(models.Model):
     description = models.CharField(max_length=1000)
@@ -43,6 +43,7 @@ class WydatekCategory(models.Model):
         return self.description
 
 class Wydatek(models.Model):
+    
     wydatek_id = models.BigIntegerField(default = 0)
     description = models.CharField(max_length = 1000)
     amount = models.DecimalField(max_digits = 18, decimal_places=2, default = 0)
@@ -69,9 +70,18 @@ class Wallet(models.Model):
     wydatek = models.ManyToManyField(Wydatek)
 
     
-    current_balance = CURRENCY_STORE_FIELD(default=0)
+    current_balance = models.DecimalField(max_digits=18, decimal_places=2, default=0)
+    
 
     created_at = models.DateTimeField(auto_now_add = True)
+
+    def obliczBilans():
+        for doch in dochod:
+            current_balance = current_balance+doch.amount
+
+        for wyd in wydatek:
+            current_balance = current_balance-wyd.amount
+        
 
     def dodajDochod(self,dochod):
         
@@ -97,9 +107,9 @@ class Transaction(models.Model):
     
     wallet = models.ForeignKey(Wallet)
 
-    value = CURRENCY_STORE_FIELD(default = 0)
+    
 
-    running_balance = CURRENCY_STORE_FIELD(default=0)
+    
 
     created_at = models.DateTimeField(auto_now_add=True)
 
